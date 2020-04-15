@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  #  before_action :require_login
+    
     def new 
       
     end 
@@ -10,6 +12,7 @@ class UsersController < ApplicationController
     end
     
     def show
+        @tasks =  current_user.tasks
         
     end 
     

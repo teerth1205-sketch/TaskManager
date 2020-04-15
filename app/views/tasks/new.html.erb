@@ -1,0 +1,6 @@
+<%= form_for :task, url: "/users/#{current_user.id}/tasks" do |f| %>
+  Title: <%= f.text_field :title %>
+  Content: <%= f.text_area :content  %>
+  Date: <%= f.date_select :date %>
+  <%= f.submit "Submit" %>
+<% end %>
