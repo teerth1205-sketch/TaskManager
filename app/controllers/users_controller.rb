@@ -1,20 +1,15 @@
 class UsersController < ApplicationController
   #  before_action :require_login
-    
+    skip_before_action :require_login, only: [:new, :create]
     def new 
       
     end 
     
     def create
-    @user = User.create(user_params)
-    session[:user_id] = @user.id
-    redirect_to user_path(@user.id)
+      @user = User.create(user_params)
+      session[:user_id] = @user.id
+      redirect_to user_path(@user.id)
     end
-    
-    def show
-        @tasks =  current_user.tasks
-        
-    end 
     
     private
  

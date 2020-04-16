@@ -1,8 +1,0 @@
-<%=current_user.username%>
-
-<%@tasks.each do |t|%>
-<%= t %>
-<%end%>
-
-<%=link_to "create a task", new_user_task_url(current_user.id) %>
-    

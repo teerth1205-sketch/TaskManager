@@ -1,29 +1,48 @@
 class TasksController < ApplicationController
+    before_action :set_project, only: [:new, :create]
     
     def index
         if params[:project_id]
-            @project = Project.find(params[:project_id]).includes(:tasks)
+            @project = Project.includes(:tasks).find(params[:project_id])
             @tasks = @project.tasks
-        elsif
-            @user = User.find(params[:user_id])
+        else
+            @user = current_user
             @tasks = @user.tasks
-        else 
-            redirect_to new_user_task_url(current_user.id)
         end
     end
     
-    def new 
-        
+    def show
+    @task = Task.find(params[:id])
+    end
+    
+    def new
+        @users = User.all
+        @task = Task.new
+        @projects = Project.all
     end 
     
-    def create 
-       Task.create(task_params)
-       redirect_to user_tasks_path
+    def create
+        if @project
+            @task = @project.tasks.build(task_params)
+        else
+            @task = current_user
+            .tasks.build(task_params)
+        end
+        if @task.save
+            redirect_to @task
+        else
+            render :new
+        end
     end 
     
      private
  
     def task_params
         params.require(:task).permit(:title, :content, :date, :user_id, :project_id)
+    end
+    
+    def set_project
+       project_id = params[:project_id]
+        @project = Project.find(project_id) if project_id  
     end
 end

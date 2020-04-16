@@ -9,12 +9,12 @@ class ProjectsController < ApplicationController
     end
     
     def create 
-        Project.create(project_params)
-        redirect_to projects_path
-    end 
+        @project = Project.create(project_params)
+        redirect_to @project
+    end
     
     def show 
-        
+        @project = Project.includes(:user, :tasks, :users).find(params[:id])
     end 
     
     def edit 
