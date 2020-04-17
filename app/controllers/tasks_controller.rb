@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-    before_action :set_project, only: [:new, :create]
+    before_action :set_project, only: [:new, :create, :edit]
     
     def index
         if params[:project_id]
@@ -35,6 +35,17 @@ class TasksController < ApplicationController
         end
     end 
     
+    def edit 
+        @task = Task.find(params[:id])
+        @user = User.all
+        @projects = Project.all
+    end 
+    
+    def update
+         @task = Task.find(params[:id])
+         @task.update(task_params)
+         redirect_to @task
+    end 
      private
  
     def task_params

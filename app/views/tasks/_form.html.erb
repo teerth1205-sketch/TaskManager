@@ -12,7 +12,7 @@
   <% if project.nil? %>
  <%= f.collection_select :project_id, projects, :id, :title %>
  <% else %>
- <%= f.collection_select :user_id, users, :id, :username %>
+ <%= f.collection_select :user_id, users, :id, :name %>
  <% end %>
   <%= f.submit "Submit" %>
 <% end %>

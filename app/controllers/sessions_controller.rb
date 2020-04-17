@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       @user = User.find_by(email: params[:user][:email])
       return head(:forbidden) unless @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
-      redirect_to root_url
+      redirect_to root_path
      end 
     end
     

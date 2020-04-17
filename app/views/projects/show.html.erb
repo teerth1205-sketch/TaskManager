@@ -1,9 +1,23 @@
 <h1><%= @project.title %></h1>
-<h2>Managed by: <%= @project.user.username %></h2>
+<h2>Managed by: <%= @project.user.name %></h2>
 <h3>Tasks: </h3>
 <ul>
     <% @project.tasks.map do |t| %>
     <li><%= link_to t.title, t %></li>
+    
+    <% end %><br>
+   <%= form_tag project_search_users_path(@project), method: :get do %>
+   <%= text_field_tag :name, params[:name]%>
+   <%= submit_tag 'Search' %>
+<% end %><br>
+<%=@user%>
+</ul>
+
+<h3>Users:</h3>
+<ul>
+    
+    <% @project.users.each do |u| %>
+        <li> <%= u.name %></li>
     <% end %>
 </ul>
 <%= link_to "Create a new task for this project", new_project_task_path(@project) %>

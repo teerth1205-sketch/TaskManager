@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :tasks, only: [:index, :new, :create]
   resources :projects do
     # nested resource for posts
+    get '/add_user', to: "projects#search_users", as: "search_users"
+    post '/add_user/:id', to: "projects#add_user", as: "add_user"
     resources :tasks, shallow: true
   end
   get '/auth/facebook/callback' => 'sessions#create'

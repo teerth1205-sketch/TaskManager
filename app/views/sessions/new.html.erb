@@ -1,5 +1,5 @@
 <%= form_for :user, url: '/login' do |f| %>
-  Username: <%= f.text_field :username %>
+  Username: <%= f.text_field :email %>
   Password: <%= f.password_field :password %>
   <%= f.submit "Submit" %>
 <% end %>

@@ -1,0 +1,5 @@
+<ul>
+    <% @users.each do |u| %>
+        <li><%= link_to u.name, project_add_user_path(@project_id, u), method: "post" %></li>
+    <% end %>
+</ul>
