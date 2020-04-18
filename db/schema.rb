@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4444_44_44_444446) do
+ActiveRecord::Schema.define(version: 4444_44_44_444447) do
 
   create_table "project_users", force: :cascade do |t|
     t.integer "project_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 4444_44_44_444446) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "project_id"
-    t.boolean "complete"
+    t.boolean "complete", default: false
   end
 
   create_table "users", force: :cascade do |t|

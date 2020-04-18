@@ -1,4 +1,9 @@
+<br>
 <%@projects.each do |p|%>
-<%=p.title%>
-<%=p.content%>
+<%= link_to p.title, project_path(p)%><br>
+ <%= button_to "Delete", project_path(p), method: 'delete', class: "button-small btn"%>
+ <%= link_to "Edit this project", edit_project_path(p)%>
+<%=p.content%><br>
+
+-------------<br>
 <%end%>

@@ -48,3 +48,9 @@ task/:id/edit
 project/task/id  
 
 
+<%=form_for @task, complete_task_url(@task.id) do |f|%>
+<%= f.label "Mark as Complete" %> <br />
+    <%= f.check_box :complete %> <br />
+    <%=f.submit "Submit" %>
+    <% end %>
+<%= link_to "Edit t

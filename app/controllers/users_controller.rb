@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     def update
      @user = User.find(params[:id])
      @user.update(user_params(:name, :email, :password))
-     red
+     redirect_to root_path
     end 
     
     private

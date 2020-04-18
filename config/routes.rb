@@ -14,6 +14,6 @@ Rails.application.routes.draw do
     resources :tasks, shallow: true
   end
   get '/auth/facebook/callback' => 'sessions#create'
- 
+  patch '/taskcomplete/:id', to: "tasks#complete", as: "complete_task"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

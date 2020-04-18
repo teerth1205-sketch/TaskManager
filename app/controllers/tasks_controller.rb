@@ -17,16 +17,18 @@ class TasksController < ApplicationController
     
     def new
         @users = User.all
+        #@user = @project.users
         @task = Task.new
-        @projects = Project.all
+        @projects = current_user.projects
+        
+      # binding.pry
     end 
     
     def create
         if @project
             @task = @project.tasks.build(task_params)
         else
-            @task = current_user
-            .tasks.build(task_params)
+            @task = current_user.tasks.build(task_params)
         end
         if @task.save
             redirect_to @task
@@ -45,11 +47,17 @@ class TasksController < ApplicationController
          @task = Task.find(params[:id])
          @task.update(task_params)
          redirect_to @task
+    end
+    
+    def complete
+        @task = Task.Find(params[:id])
+        @task.update(task_params(:complete))
+        redirect_to @task
     end 
      private
  
     def task_params
-        params.require(:task).permit(:title, :content, :date, :user_id, :project_id)
+        params.require(:task).permit(:title, :content, :date, :user_id, :project_id, :complete)
     end
     
     def set_project

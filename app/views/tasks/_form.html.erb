@@ -10,9 +10,10 @@
   Content: <%= f.text_area :content  %>
   Date: <%= f.date_select :date %>
   <% if project.nil? %>
- <%= f.collection_select :project_id, projects, :id, :title %>
+ <%= f.collection_select :project_id, projects, :id, :title, {include_blank: true}%>
  <% else %>
- <%= f.collection_select :user_id, users, :id, :name %>
+ <%= f.collection_select :user_id, users, :id, :name, {include_blank: true}%>
  <% end %>
+ <%= f.check_box :complete %>
   <%= f.submit "Submit" %>
 <% end %>

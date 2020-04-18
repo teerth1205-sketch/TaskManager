@@ -10,7 +10,8 @@ class ProjectsController < ApplicationController
     end
     
     def create 
-        @project = Project.create(project_params)
+        @project = Project.new(project_params)
+        @project.save
         #@user =  User.search
         redirect_to @project
     end
@@ -32,17 +33,30 @@ class ProjectsController < ApplicationController
     def add_user
         @user = User.find(params[:id])
         @project = Project.find(params[:project_id])
-        @project.users << @user
+        @project.project_users.create(user: @user, project: @project)
+       # @user.projects << @project
+        @project.save
         redirect_to @project
     end
     
     def edit 
+        @project = Project.find(params[:id])
         
     end 
     
     def update 
-        
+         @project = Project.find(params[:id])
+         @project.update(project_params)
+         redirect_to @project
     end 
+    
+    def destroy
+        @project = Project.find(params[:id])
+        if current_user.id == @project.user_id
+            @project.delete
+        end 
+    end 
+    
     
      private
  
