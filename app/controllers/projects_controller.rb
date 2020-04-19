@@ -5,14 +5,17 @@ class ProjectsController < ApplicationController
     end 
     
     def index
-        @projects = Project.where(user_id: current_user.id)
+        current_user
+        @projects = current_user.projects # Project.where(user_id: current_user.id)
         
     end
     
     def create 
+        current_user
         @project = Project.new(project_params)
         @project.save
-        #@user =  User.search
+        @project.project_users.create(user: @user)
+        #binding.pry#@user =  User.search
         redirect_to @project
     end
     
@@ -33,7 +36,7 @@ class ProjectsController < ApplicationController
     def add_user
         @user = User.find(params[:id])
         @project = Project.find(params[:project_id])
-        @project.project_users.create(user: @user, project: @project)
+       @project.project_users.create(user: @user)
        # @user.projects << @project
         @project.save
         redirect_to @project
@@ -53,7 +56,8 @@ class ProjectsController < ApplicationController
     def destroy
         @project = Project.find(params[:id])
         if current_user.id == @project.user_id
-            @project.delete
+            @project.destroy
+            redirect_to projects_path
         end 
     end 
     

@@ -41,6 +41,7 @@ class TasksController < ApplicationController
         @task = Task.find(params[:id])
         @user = User.all
         @projects = Project.all
+        binding.pry
     end 
     
     def update
