@@ -1,23 +1,27 @@
 class TasksController < ApplicationController
     before_action :set_project, only: [:new, :create, :edit]
+    #before_action :is_task_owner, only: [:show, :edit]
+    
     
     def index
         if params[:project_id]
             @project = Project.includes(:tasks).find(params[:project_id])
             @tasks = @project.tasks
         else
-            @user = current_user
+            current_user
             @tasks = @user.tasks
         end
     end
     
     def show
-    @task = Task.find(params[:id])
+        @task = Task.find(params[:id])
+       # is_task_owner(:show)
     end
     
     def new
-        @users = @project.users
-        #@user = @project.users
+        if @project
+            @users = @project.users
+        end#@user = @project.users
         @task = Task.new
         @projects = current_user.projects
         
@@ -25,7 +29,9 @@ class TasksController < ApplicationController
     end 
     
     def create
+        if @project
          @users = @project.users
+        end 
          @task = Task.new
          @projects = current_user.projects
         if @project
@@ -42,8 +48,10 @@ class TasksController < ApplicationController
     
     def edit 
         @task = Task.find(params[:id])
+        is_task_owner(:edit)
         @user = User.all
         @projects = Project.all 
+        
     end 
     
     def update
@@ -57,6 +65,15 @@ class TasksController < ApplicationController
         @task.update(task_params(:complete))
         redirect_to @task
     end 
+    
+    def destroy
+        @task = Task.find(params[:id])
+        if current_user.id = @task.user_id
+            @task.destroy
+            redirect_to tasks_path
+        end 
+    end 
+       
      private
  
     def task_params

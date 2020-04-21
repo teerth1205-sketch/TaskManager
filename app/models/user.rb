@@ -4,7 +4,6 @@ has_many :tasks
 has_many :project_users
 has_many :projects, through: :project_users
 has_many :projects_with_tasks, through: :tasks, source: :project
-
 validates_presence_of :name, :email
 validates_uniqueness_of :email
 

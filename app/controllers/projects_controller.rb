@@ -6,8 +6,13 @@ class ProjectsController < ApplicationController
     
     def index
         current_user
-        @projects = current_user.projects # Project.where(user_id: current_user.id)
-        
+        if params[:projects]
+            @projects = current_user.projects_with_tasks
+        elsif params[:projectss] 
+            @projects = current_user.projects # Project.where(user_id: current_user.id)
+        else 
+            @projects = current_user.projects
+        end 
     end
     
     def create 

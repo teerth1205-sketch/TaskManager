@@ -4,9 +4,15 @@
 <%=link_to "create a task", new_task_url(current_user.id) %><br>
 <br>
 
+<%= form_tag tasks_path, method: :get do %>
+   <%=radio_button_tag 'gender', 'male'%>
+   <%= submit_tag 'Search' %>
+   <%end%>
+
 <% @tasks.each.with_index(1) do |t,i|%>
 <h4><%=i%></h4>
 <%= link_to t.title, task_path(t) %><br>
 <%= t.content %><br>
 <%= t.date.strftime("%Y-%m-%d") %><br>
-<%end%> 
+<%= button_to "Delete", task_path(t), method: 'delete',  class: "button-small btn"%>
+<% end %>  

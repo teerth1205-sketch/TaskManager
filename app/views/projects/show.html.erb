@@ -1,5 +1,5 @@
 <h1><%= @project.title %></h1>
-<h2>Managed by: <%= @project.user.email %></h2>
+<h2>Managed by: <%= @project.user.name %></h2>
 <h3>Tasks: </h3>
 
     <% @project.tasks.map do |t| %>
@@ -23,4 +23,5 @@
 <%= link_to "Create a new task for this project", new_project_task_path(@project) %>
 <% if current_user.id == @project.user_id %>
 <%= link_to "Edit this project", edit_project_path(@project)%>
+<%= button_to "Delete", project_path(@project), method: 'delete',  class: "button-small btn"%>
 <% end %>
