@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Task Manager App where one can signup and create tasks and create projects that have many tasks, you can edit the information as well. 
 
-Things you may want to cover:
+to get this app running clone the repository and do a git clone in the terminal and run rake db:migrate and then rails s.
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
