@@ -1,8 +1,9 @@
 <%=@error%>
-<%= @task.title %>
-
-<%= @task.complete %>
-<% if current_user.id == @task.user_id %>
+<%= @task.title %><br>
+<br>
+Content <%=@task.content%><br>
+Complete? : <%= @task.complete%><br>
+<% if current_user.id == @task.user_id%>
 <%= link_to "Edit this Task", edit_task_path(@task.id)%>
 <%= button_to "Delete", task_path(@task), method: 'delete',  class: "button-small btn"%>
-<% end %>
+<%end%>

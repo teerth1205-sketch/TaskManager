@@ -6,8 +6,9 @@
    All Projects<%=radio_button_tag 'projectss', 'hi'%><br>
    <%= submit_tag 'Filter' %>
    <%end%><br>
-   <br>
-<%@projects.each do |p|%>
+
+<%@projects.each.with_index(1) do |p,i|%>
+<h4><%=i%></h4>
 <%= link_to p.title, project_path(p)%><br>
 <%= link_to "Edit this project", edit_project_path(p), class: "button-small btn"%>
 

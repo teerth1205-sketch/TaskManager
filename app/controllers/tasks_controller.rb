@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-    before_action :set_project, only: [:new, :create, :edit]
+    before_action :set_project, only: [:new, :create, :edit, :show]
     before_action :find_task, only: [:show, :edit, :update, :complete, :destroy]
     
     
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     end
     
     def show
-        @task = Task.find(params[:id])
+        #@task = Task.find(params[:id]
     end
     
     def new
@@ -81,8 +81,8 @@ class TasksController < ApplicationController
     end
     
     def set_project
-       project_id = params[:project_id]
-        @project = Project.find(project_id) if project_id  
+           project_id = params[:project_id]
+           @project = Project.find(project_id) if project_id 
     end
     
     def find_task

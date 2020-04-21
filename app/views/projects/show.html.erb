@@ -4,15 +4,19 @@
 
     <% @project.tasks.map do |t| %>
     <%= link_to t.title, t %><br>
+    <%if t.user %>
+    <%= t.user.name %><br>
+    <%end %>
+    Complete?: <%= t.complete%><br>
     -----------------------
-    
+    <br>
 
     <% end %><br>
    <%= form_tag project_search_users_path(@project), method: :get do %>
    <%= text_field_tag :name, params[:name]%>
    <%= submit_tag 'Search' %>
 <% end %><br>
-<%=@user%>
+
 
 
 <h3>Users:</h3>

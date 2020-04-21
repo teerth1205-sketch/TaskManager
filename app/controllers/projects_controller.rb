@@ -27,8 +27,11 @@ class ProjectsController < ApplicationController
         end 
     end
     
-    def show 
-        @project = Project.includes(:user, :tasks, :users).find(params[:id])
+    def show
+            @project = Project.includes(:user, :tasks, :users).find(params[:id])
+         if !(@project.users.include?(current_user))
+             render html: "<script>alert('You cant view this project!')</script>".html_safe
+         end 
     end
     
     def search_users
