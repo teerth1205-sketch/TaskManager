@@ -1,10 +1,15 @@
 <h1> Tasks for <%=current_user.name%>:</h1>
 
-<%current_user.tasks.each do |t|%>
-<h4><%= t.title %></h4>
-<p><%= t.content %></p>
-<%end%>
 
+<% current_user.tasks.each.with_index(1) do |t,i|%>
+<h4><%=i%></h4>
+<%= link_to t.title, task_path(t) %><br>
+Content: <%= t.content %><br>
+Date Due: <%= t.date.strftime("%Y-%m-%d") %><br>
+Task Complete: <%= t.complete%><br>
+<%= button_to "Delete", task_path(t), method: 'delete',  class: "button-small btn"%>
+<% end %>  
+<br> 
 <%=link_to "create a task", new_task_url(current_user.id) %>
 <%=link_to "create a project", new_project_path %>
     

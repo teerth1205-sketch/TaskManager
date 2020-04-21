@@ -16,7 +16,9 @@ class UsersController < ApplicationController
     end
     
     def edit 
-      current_user    
+      if current_user.id = params[:id]
+        current_user   
+      end 
     end 
     
     def update

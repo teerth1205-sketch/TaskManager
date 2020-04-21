@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
     before_action :set_project, only: [:new, :create, :edit]
-    #before_action :is_task_owner, only: [:show, :edit]
+    before_action :find_task, only: [:show, :edit, :update, :complete, :destroy]
+    
     
     
     def index
@@ -15,17 +16,16 @@ class TasksController < ApplicationController
     
     def show
         @task = Task.find(params[:id])
-       # is_task_owner(:show)
     end
     
     def new
         if @project
             @users = @project.users
-        end#@user = @project.users
+        end
         @task = Task.new
         @projects = current_user.projects
         
-      # binding.pry
+     
     end 
     
     def create
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
     end 
     
     def edit 
-        @task = Task.find(params[:id])
+       # @task = Task.find(params[:id])
         is_task_owner(:edit)
         @user = User.all
         @projects = Project.all 
@@ -55,19 +55,19 @@ class TasksController < ApplicationController
     end 
     
     def update
-         @task = Task.find(params[:id])
+       #  @task = Task.find(params[:id])
          @task.update(task_params)
          redirect_to @task
     end
     
     def complete
-        @task = Task.Find(params[:id])
+        #@task = Task.Find(params[:id])
         @task.update(task_params(:complete))
         redirect_to @task
     end 
     
     def destroy
-        @task = Task.find(params[:id])
+        #@task = Task.find(params[:id])
         if current_user.id = @task.user_id
             @task.destroy
             redirect_to tasks_path
@@ -84,4 +84,8 @@ class TasksController < ApplicationController
        project_id = params[:project_id]
         @project = Project.find(project_id) if project_id  
     end
+    
+    def find_task
+        @task = Task.find(params[:id])
+    end 
 end
