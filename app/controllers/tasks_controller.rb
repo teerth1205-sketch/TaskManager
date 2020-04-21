@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     end
     
     def new
-        @users = User.all
+        @users = @project.users
         #@user = @project.users
         @task = Task.new
         @projects = current_user.projects
@@ -25,6 +25,9 @@ class TasksController < ApplicationController
     end 
     
     def create
+         @users = @project.users
+         @task = Task.new
+         @projects = current_user.projects
         if @project
             @task = @project.tasks.build(task_params)
         else
@@ -40,8 +43,7 @@ class TasksController < ApplicationController
     def edit 
         @task = Task.find(params[:id])
         @user = User.all
-        @projects = Project.all
-        binding.pry
+        @projects = Project.all 
     end 
     
     def update

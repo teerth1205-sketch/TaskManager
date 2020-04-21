@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
     
     def new 
-        
+        @project = Project.new
     end 
     
     def index
@@ -13,10 +13,13 @@ class ProjectsController < ApplicationController
     def create 
         current_user
         @project = Project.new(project_params)
-        @project.save
-        @project.project_users.create(user: @user)
-        #binding.pry#@user =  User.search
-        redirect_to @project
+        if @project.save
+            @project.project_users.create(user: @user)
+            #binding.pry#@user =  User.search
+            redirect_to @project
+        else
+            render :new
+        end 
     end
     
     def show 
@@ -27,7 +30,8 @@ class ProjectsController < ApplicationController
     def search_users
         @project_id = params[:project_id]
         if params[:name]
-            @users = User.where('name LIKE ?', "%#{params[:name]}%")
+            @users = User.search_users(params[:name])
+          #  User.where('name LIKE ?', "%#{params[:name]}%")
         else
             @users = User.all
         end
@@ -36,7 +40,7 @@ class ProjectsController < ApplicationController
     def add_user
         @user = User.find(params[:id])
         @project = Project.find(params[:project_id])
-       @project.project_users.create(user: @user)
+        @project.project_users.create(user: @user)
        # @user.projects << @project
         @project.save
         redirect_to @project

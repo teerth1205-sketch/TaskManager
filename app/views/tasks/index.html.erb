@@ -1,1 +1,12 @@
-<%= @tasks.count%>
+<br>
+
+<br>
+<%=link_to "create a task", new_task_url(current_user.id) %><br>
+<br>
+
+<% @tasks.each.with_index(1) do |t,i|%>
+<h4><%=i%></h4>
+<%= link_to t.title, task_path(t) %><br>
+<%= t.content %><br>
+<%= t.date.strftime("%Y-%m-%d") %><br>
+<%end%> 

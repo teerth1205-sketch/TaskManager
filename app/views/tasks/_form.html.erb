@@ -14,6 +14,6 @@
  <% else %>
  <%= f.collection_select :user_id, users, :id, :name, {include_blank: true}%>
  <% end %>
- <%= f.check_box :complete %>
+ Complete?<%= f.check_box :complete %>
   <%= f.submit "Submit" %>
 <% end %>
