@@ -12,14 +12,19 @@ class SessionsController < ApplicationController
        redirect_to root_path
      else 
       @user = User.find_by(email: params[:user][:email])
+      if @user
       return head(:forbidden) unless @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       redirect_to root_path
+  else
+      render :new
+  end
      end 
     end
     
     def destroy
       session.clear
+      redirect_to root
     end 
     
 end 

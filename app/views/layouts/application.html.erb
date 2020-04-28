@@ -67,7 +67,7 @@ li a:hover {
   <li><a class="active" href="/">Home</a></li>
   <li><a href='/tasks'>Tasks</a></li>
   <li><a href='/projects'>Projects</a></li>
-  <li><a href='/users/:id/edit'>Profile Edit</a></li>
+  <li><a href='/users/<%= current_user.id %>/edit'>Profile Edit</a></li>
   <li><a link_to Logout, destroy_session_url></a></a></li>
 </ul>
    

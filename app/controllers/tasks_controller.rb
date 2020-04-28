@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
-    before_action :set_project, only: [:new, :create, :edit, :show]
     before_action :find_task, only: [:show, :edit, :update, :complete, :destroy]
+    before_action :set_project, only: [:new, :create, :edit, :show]
+    
     
     
     
@@ -9,7 +10,7 @@ class TasksController < ApplicationController
             @project = Project.includes(:tasks).find(params[:project_id])
             @tasks = @project.tasks
         else
-            current_user
+  
             @tasks = @user.tasks
         end
     end
@@ -49,15 +50,20 @@ class TasksController < ApplicationController
     def edit 
        # @task = Task.find(params[:id])
         is_task_owner(:edit)
-        @user = User.all
-        @projects = Project.all 
+        @users = @project.users
+        @projects = current_user.projects
         
     end 
     
     def update
        #  @task = Task.find(params[:id])
+       if @task.user == current_user
+       
          @task.update(task_params)
          redirect_to @task
+     else
+        #you can't do that 
+     end
     end
     
     def complete
@@ -82,7 +88,12 @@ class TasksController < ApplicationController
     
     def set_project
            project_id = params[:project_id]
-           @project = Project.find(project_id) if project_id 
+           if project_id
+               @nested = true
+               @project = Project.find(project_id)
+           else
+               @project = @task.project
+           end
     end
     
     def find_task

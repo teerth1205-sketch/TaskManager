@@ -1,2 +1,2 @@
 <%= render partial: 'form', locals: {projects: @projects, project: @project,
-    action: @project ? [@project, @task] : @task, users: @users} %>
+    action: @nested ? [@project, @task] : @task, users: @users} %>
