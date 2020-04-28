@@ -10,7 +10,7 @@ class TasksController < ApplicationController
             @project = Project.includes(:tasks).find(params[:project_id])
             @tasks = @project.tasks
         else
-  
+            current_user
             @tasks = @user.tasks
         end
     end
@@ -92,7 +92,9 @@ class TasksController < ApplicationController
                @nested = true
                @project = Project.find(project_id)
            else
+            if @task
                @project = @task.project
+           end 
            end
     end
     
