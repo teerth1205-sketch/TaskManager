@@ -50,7 +50,9 @@ class TasksController < ApplicationController
     def edit 
        # @task = Task.find(params[:id])
         is_task_owner(:edit)
+        if @project
         @users = @project.users
+        end 
         @projects = current_user.projects
         
     end 
