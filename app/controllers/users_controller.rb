@@ -25,12 +25,13 @@ class UsersController < ApplicationController
       params[:user].delete(:password) if params[:user][:password].blank?
 
       current_user.update(user_params)
-      if current_user.valid?
+     # binding.pry
+      if current_user.save
       
      redirect_to root_path
-    else
+      else
      render :edit
-   end
+      end
     end 
     
     private
